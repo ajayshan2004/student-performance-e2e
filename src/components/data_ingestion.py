@@ -9,9 +9,9 @@ from dataclasses import dataclass
 
 @dataclass
 class DataIngestionConfig:
-    train_data_path: str = os.path.join('artifact', 'train.csv')
-    test_data_path: str = os.path.join('artifact', 'test.csv')
-    raw_data_path: str = os.path.join('artifact', 'data.csv')
+    train_data_path: str = os.path.join('artifacts', 'train.csv')
+    test_data_path: str = os.path.join('artifacts', 'test.csv')
+    raw_data_path: str = os.path.join('artifacts', 'data.csv')
 
 class DataIngestion: 
     def __init__(self):
@@ -22,7 +22,7 @@ class DataIngestion:
         try:
             df = pd.read_csv('notebook\data\StudentPerformance.csv')
             logging.info('Read the dataset into dataframe')
-            os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True) #needed to create the artifact folder first time
+            os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path), exist_ok=True) #needed to create the artifacts folder first time
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
             logging.info('Train Test split initiated')
             train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
